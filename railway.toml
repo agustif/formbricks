@@ -9,8 +9,8 @@ installCommand = "pnpm install --frozen-lockfile"
 buildCommand = "pnpm build --filter=@formbricks/web..."
 
 [deploy]
-# Explicitly set the start command, including migrations
-startCommand = "(cd packages/database && pnpm db:migrate:deploy) && (cd packages/database && pnpm db:create-saml-database:deploy) && node apps/web/server.js"
+# Explicitly set the start command, temporarily removing migrations
+startCommand = "node apps/web/server.js"
 # Set healthcheck path and timeout (optional but recommended)
 healthcheckPath = "/api/v1/health" 
 healthcheckTimeout = 600
