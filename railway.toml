@@ -3,6 +3,8 @@
 [build]
 # Tells Nixpacks which builder to use (optional, usually auto-detected)
 # builder = "nixpacks" 
+# Explicitly tell Nixpacks to use pnpm for installation
+installCommand = "pnpm install --frozen-lockfile"
 # Explicitly set the build command for the monorepo
 buildCommand = "pnpm build --filter=@formbricks/web..."
 
