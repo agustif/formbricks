@@ -9,9 +9,10 @@ installCommand = "pnpm install --frozen-lockfile"
 buildCommand = "pnpm build --filter=@formbricks/web..."
 
 [deploy]
-# Start command should point to the built server file (likely at the root)
-startCommand = "node server.js"
+# Use the standard Next.js production start command
+startCommand = "next start"
 # Set healthcheck path and timeout (optional but recommended)
+# Note: Default Next.js port is 3000, Railway injects PORT env var. `next start` respects PORT.
 healthcheckPath = "/api/v1/health" 
 healthcheckTimeout = 600
 # Specifies restart policy
