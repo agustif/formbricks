@@ -9,8 +9,8 @@ installCommand = "pnpm install --frozen-lockfile"
 buildCommand = "pnpm build --filter=@formbricks/web..."
 
 [deploy]
-# Explicitly set the start command, temporarily removing migrations
-startCommand = "node apps/web/server.js"
+# Start command should point to the built server file (likely at the root)
+startCommand = "node server.js"
 # Set healthcheck path and timeout (optional but recommended)
 healthcheckPath = "/api/v1/health" 
 healthcheckTimeout = 600
