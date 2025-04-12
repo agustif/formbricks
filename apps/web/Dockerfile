@@ -1,7 +1,8 @@
+# syntax = docker/dockerfile:1.4
+
 FROM node:22-alpine3.20@sha256:40be979442621049f40b1d51a26b55e281246b5de4e5f51a18da7beb6e17e3f9 AS base
 
 # Enable BuildKit cache mounts
-# syntax = docker/dockerfile:1.4
 
 #
 ## step 1: Prune monorepo
