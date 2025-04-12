@@ -54,7 +54,7 @@ COPY packages/database/package.json ./packages/database/
 COPY apps/web/package.json ./apps/web/
 
 # Use cache mount for pnpm store
-RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store,id=cache-formbricks-pnpm-store \
     pnpm install --frozen-lockfile
 
 # Copy the rest of the source code
@@ -64,7 +64,7 @@ COPY . .
 RUN touch apps/web/.env
 
 # Use cache mount for Next.js build cache
-RUN --mount=type=cache,id=next-cache,target=/app/apps/web/.next/cache \
+RUN --mount=type=cache,target=/app/apps/web/.next/cache,id=cache-formbricks-next-cache \
     --mount=type=secret,id=database_url \
     --mount=type=secret,id=encryption_key \
     /tmp/read-secrets.sh pnpm build --filter=@formbricks/web...
@@ -78,7 +78,7 @@ RUN jq -r '.devDependencies.prisma' packages/database/package.json > /prisma_ver
 FROM base AS runner
 
 # Use cache mount for global npm packages
-RUN --mount=type=cache,id=npm-cache,target=/root/.npm \
+RUN --mount=type=cache,target=/root/.npm,id=cache-formbricks-npm-cache \
     npm install -g corepack@latest tsx typescript prisma pino-pretty
 
 RUN corepack enable
