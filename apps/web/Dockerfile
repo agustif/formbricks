@@ -79,8 +79,7 @@ RUN jq -r '.devDependencies.prisma' packages/database/package.json > /prisma_ver
 FROM base AS runner
 
 # Use cache mount for global npm packages
-RUN --mount=type=cache,id=s/4584586d-a557-4c41-be07-39c9304b1215-npm-cache,target=/root/.npm \
-    npm install -g corepack@latest tsx typescript prisma pino-pretty
+RUN npm install -g corepack@latest tsx typescript prisma pino-pretty
 
 RUN corepack enable
 
