@@ -147,13 +147,11 @@ ENV HOSTNAME "0.0.0.0"
 ENV NODE_ENV="production"
 # USER nextjs
 
-# Prepare volume for uploads
-RUN mkdir -p /home/nextjs/apps/web/uploads/
-VOLUME /home/nextjs/apps/web/uploads/
-
-# Prepare volume for SAML preloaded connection
-RUN mkdir -p /home/nextjs/apps/web/saml-connection
-VOLUME /home/nextjs/apps/web/saml-connection
+# Prepare directories in Railway's persistent /data path
+RUN mkdir -p /data/uploads /data/saml-connection && \
+    ln -s /data/uploads /home/nextjs/apps/web/uploads && \
+    ln -s /data/saml-connection /home/nextjs/apps/web/saml-connection && \
+    chown -R nextjs:nextjs /data
 
 CMD if [ "${DOCKER_CRON_ENABLED:-1}" = "1" ]; then \
       echo "Starting cron jobs..."; \
