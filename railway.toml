@@ -1,0 +1,17 @@
+# railway.toml
+
+[build]
+# Tells Nixpacks which builder to use (optional, usually auto-detected)
+# builder = "nixpacks" 
+# Explicitly set the build command for the monorepo
+buildCommand = "pnpm build --filter=@formbricks/web..."
+
+[deploy]
+# Explicitly set the start command, including migrations
+startCommand = "(cd packages/database && pnpm db:migrate:deploy) && (cd packages/database && pnpm db:create-saml-database:deploy) && node apps/web/server.js"
+# Set healthcheck path and timeout (optional but recommended)
+healthcheckPath = "/api/v1/health" 
+healthcheckTimeout = 600
+# Specifies restart policy
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10 
